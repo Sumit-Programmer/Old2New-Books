@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
+import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
@@ -101,11 +102,6 @@ def createpost():
         flash('You need to be logged in to create a post.', 'danger')
         return redirect(url_for('login'))
 
-    user = User.query.filter_by(username=session['username']).first()
-    if not user:
-        flash('User not found. Please log in again.', 'danger')
-        return redirect(url_for('login'))
-
     if request.method == 'POST':
         title = request.form.get('title')
         year = request.form.get('year')
@@ -115,16 +111,21 @@ def createpost():
         amount = request.form.get('amount') if price == 'Paid' else None
         contact = request.form.get('contact')
 
+        # Get removed images from the form
+        removed_images = request.form.get('removed_images')
+        removed_images = json.loads(removed_images) if removed_images else []
+
         # Handle image uploads
         files = request.files.getlist('book_images')
         filenames = []
         for file in files:
-            if file and file.filename != '':
+            if file and file.filename not in removed_images:  # Exclude removed images
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 filenames.append(filename)
 
         # Save the post to the database
+        user = User.query.filter_by(username=session['username']).first()
         try:
             new_post = Post(
                 title=title,
