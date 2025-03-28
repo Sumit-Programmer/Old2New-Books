@@ -34,7 +34,17 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref=db.backref('posts', lazy=True))
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
+def home():
+    if 'username' not in session:
+        flash('You need to log in to access the home page.', 'danger')
+        return redirect(url_for('login'))
+    
+    user = User.query.filter_by(username=session['username']).first()
+    return render_template('index.html', user=user)
+
+
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
@@ -80,15 +90,6 @@ def logout():
     flash('You have been logged out.', 'success')
     return redirect(url_for('login'))
 
-@app.route('/home')
-def home():
-    if 'username' not in session:
-        flash('You need to log in to access the home page.', 'danger')
-        return redirect(url_for('login'))
-    
-    user = User.query.filter_by(username=session['username']).first()
-    return render_template('index.html', user=user)
-
 @app.context_processor
 def inject_user():
     if 'username' in session:
@@ -98,6 +99,7 @@ def inject_user():
 
 @app.route('/createpost', methods=['GET', 'POST'])
 def createpost():
+    print('Session:', session)  # Debugging: Check session data
     if 'username' not in session:
         flash('You need to be logged in to create a post.', 'danger')
         return redirect(url_for('login'))
