@@ -63,6 +63,8 @@
     </div>
 
     <script>
+        let removedImages = []; // Array to track removed images
+    
         function addImage() {
             document.getElementById('imageInput').click();
         }
@@ -85,6 +87,7 @@
                     deleteBtn.innerHTML = '×';
                     deleteBtn.onclick = function () {
                         previewContainer.removeChild(imageBox);
+                        removedImages.push(file.name); // Track the removed image
                     };
     
                     imageBox.appendChild(img);
@@ -94,17 +97,15 @@
                 reader.readAsDataURL(file);
             });
         }
-        function togglePriceInput() {
-            const priceFree = document.getElementById('price_free');
-            const priceInput = document.getElementById('price_input');
-
-            // Show the "Amount" input field only if "Paid" is selected
-            if (priceFree.checked) {
-                priceInput.style.display = 'none';
-            } else {
-                priceInput.style.display = 'block';
-            }
-        }
+    
+        // Add removedImages to a hidden input field before form submission
+        document.querySelector('form').addEventListener('submit', function () {
+            const removedImagesInput = document.createElement('input');
+            removedImagesInput.type = 'hidden';
+            removedImagesInput.name = 'removed_images';
+            removedImagesInput.value = JSON.stringify(removedImages); // Pass removed images as JSON
+            this.appendChild(removedImagesInput);
+        });
     </script>
 </body>
 </html>
