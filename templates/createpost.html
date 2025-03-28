@@ -94,6 +94,17 @@
                 reader.readAsDataURL(file);
             });
         }
+        function togglePriceInput() {
+            const priceFree = document.getElementById('price_free');
+            const priceInput = document.getElementById('price_input');
+
+            // Show the "Amount" input field only if "Paid" is selected
+            if (priceFree.checked) {
+                priceInput.style.display = 'none';
+            } else {
+                priceInput.style.display = 'block';
+            }
+        }
     </script>
 </body>
 </html>
