@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <!-- logo -->
     <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
 </head>
+
 <body>
     <nav>
         <div class="nav-container">
@@ -24,11 +26,11 @@
                 <ul>
                     <li><a href="/">Home</a></li>
                     {% if user %}
-                        <li><a href="/settings">Settings</a></li>
-                        <li><a href="/logout">Logout</a></li>
+                    <li><a href="/settings">Settings</a></li>
+                    <li><a href="/logout">Logout</a></li>
                     {% else %}
-                        <li><a href="/login">Login</a></li>
-                        <li><a href="/register">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -38,7 +40,11 @@
         <div class="make-post">
             <h2>Make a Post</h2>
             <br>
-            <a href="/createpost">Create Book Post</a>
+            {% if user %}
+                <a href="/createpost">Create Book Post</a>
+            {% else %}
+                <a href="/login" onclick="alert('You need to log in to create a post!')">Create Book Post</a>
+            {% endif %}
         </div>
         <div class="view-posts">
             <h2>View Books</h2>
@@ -54,4 +60,5 @@
         }
     </script>
 </body>
+
 </html>
