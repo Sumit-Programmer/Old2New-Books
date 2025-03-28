@@ -68,7 +68,19 @@
         function addImage() {
             document.getElementById('imageInput').click();
         }
-    
+
+        function togglePriceInput() {
+            const priceFree = document.getElementById('price_free');
+            const priceInput = document.getElementById('price_input');
+
+            // Show the "Amount" input field only if "Paid" is selected
+            if (priceFree.checked) {
+                priceInput.style.display = 'none'; // Hide the amount input
+            } else {
+                priceInput.style.display = 'block'; // Show the amount input
+            }
+        }
+        
         function previewImages(event) {
             const files = event.target.files;
             const previewContainer = document.getElementById('bookImagesPreview');
