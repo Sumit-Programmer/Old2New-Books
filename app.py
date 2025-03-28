@@ -81,7 +81,19 @@ def logout():
 
 @app.route('/home')
 def home():
-    return render_template('index.html')
+    if 'username' not in session:
+        flash('You need to log in to access the home page.', 'danger')
+        return redirect(url_for('login'))
+    
+    user = User.query.filter_by(username=session['username']).first()
+    return render_template('index.html', user=user)
+
+@app.context_processor
+def inject_user():
+    if 'username' in session:
+        user = User.query.filter_by(username=session['username']).first()
+        return {'current_user': user}
+    return {'current_user': None}
 
 @app.route('/createpost', methods=['GET', 'POST'])
 def createpost():
