@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #f5f5f5;
+    background-color: #1a1a1a;
+}
+
+a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-left: 30px;
+    display: block;
+    text-align: center;
+    margin: 30px;
+    padding: 10px;
+    background-color: #ff012b;
+    width: 100px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+a:hover {
+    background-color: #c00221;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    color: #ff2b2b;
+    font-size: 30px;
+}
+
+.post-details {
+    text-align: center;
+    display: flex;
+    margin: 40px;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.post-details img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.post-details p {
+    color: #b70cfa;
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.post-img {
+    width: 50%;
+    height: 100%;
+    margin: 40px;
+    align-items: start;
+    justify-content: center;
+}
+
+.post-img p {
+    font-size: 22px;
+    color: #fa0c9f;
+    margin: 120x 0;
+    margin-top: 20px;
+    text-align: start;
+}
+
+.post-img p strong {
+    color: #01cf7d;
+}
+
+.post-detail {
+    width: 50%;
+    margin: 10px;
+    margin-top: 60px;
+    align-items: end;
+}
+
+.post-detail p {
+    font-size: 22px;
+    color: #fa0c9f;
+    margin: 120x 0;
+    margin-top: 20px;
+    text-align: start;
+}
+
+.post-detail p strong {
+    color: #01cf7d;
+}
+
+.first-image-box {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.first-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.image-box {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* Responsive styles for tablets (max-width: 768px) */
+@media (max-width: 768px) {
+    .post-details {
+        flex-direction: column; /* Stack the content vertically */
+        width: 90%;
+        margin: 10px auto;
+        padding: 10px;
+    }
+
+    .first-image-box {
+        width: 250px;
+        height: 250px;
+        margin: 0 auto 20px auto; /* Center the large image */
+    }
+
+    .image-preview-container {
+        justify-content: center; /* Center the smaller images */
+    }
+
+    .image-box {
+        width: 80px;
+        height: 80px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .post-detail {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .post-detail p {
+        font-size: 18px;
+        text-align: start;
+    }
+}
+
+/* Responsive styles for mobile devices (max-width: 480px) */
+@media (max-width: 480px) {
+    .post-details {
+        flex-direction: column; /* Stack the content vertically */
+        width: 95%;
+        margin: 10px auto;
+        padding: 10px;
+    }
+
+    .first-image-box {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 20px auto; /* Center the large image */
+    }
+
+    .image-preview-container {
+        justify-content: center; /* Center the smaller images */
+        gap: 5px; /* Reduce the gap between images */
+    }
+
+    .image-box {
+        width: 60px;
+        height: 60px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .post-detail {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .post-detail p {
+        font-size: 16px;
+        text-align: start;
+    }
+
+    a {
+        font-size: 16px;
+        width: 80px;
+        padding: 8px;
+    }
+}

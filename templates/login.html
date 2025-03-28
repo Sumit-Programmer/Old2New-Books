@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+</head>
+<body>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div>
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <script>alert('{{ message }}');</script>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+
+    <div class="container">
+        <div class="image">
+            <img src="{{ url_for('static', filename='/images/register.png') }}" alt="Register">
+        </div>
+        <div class="form-container">
+            <h1>Login</h1>
+            <form method="POST" action="{{ url_for('login') }}">
+                <div class="username">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required placeholder="Enter your username">
+                </div>
+
+                <br>
+                <div class="password">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter your password">
+                </div>
+                
+                <br>
+                <div class="submit">
+                    <input type="submit" value="Login">
+                </div>
+
+                <br>
+                <div class="login">
+                    <p>Create an account <a href="/">Register</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

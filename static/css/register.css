@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.form-container {
+    text-align: end;
+    align-items: end;
+    padding: 20px;
+    padding-right: 50px;
+    margin: 100px;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: rgb(70, 70, 70, 0.5);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+                0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    height: 650px;
+}
+
+.image img {
+    margin: 10px;
+    width: 450px;
+}
+
+.form-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ff2b2b;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 5px;
+    color: #5d22ff;
+    font-weight: 600;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: medium;
+    color: #fff;
+    background-color: transparent;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"] :focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.form-container input[type="submit"] {
+    padding: 10px 20px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 30px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.form-container input[type="submit"]:active {
+    background-color: #3e8e41;
+}
+
+.login {
+    text-align: center;
+    margin-top: 0px;
+    color: #fff;
+}
+
+.login a {
+    color: #a10cfd;
+}
+
+@media screen and (max-width: 1090px) {
+
+    .image img {
+        width: 400px;
+    }
+    
+}
+
+@media screen and (max-width: 950px) {
+    .form-container {
+        font-size: 10px;
+    }
+
+    .form-container {
+        margin: 30px;
+    }
+
+    .image img {
+        display: none;
+    }
+    
+}

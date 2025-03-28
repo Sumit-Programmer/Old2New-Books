@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Books</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/viewpost.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+</head>
+
+<body>
+    <a href="{{ url_for('viewposts') }}"> ← Back</a>
+    <h1>{{ post.title }}</h1>
+
+    <div class="post-details">
+        <!-- Display the first image larger -->
+        <div class="post-img">
+            {% if images|length > 0 %}
+            <div class="first-image-box" id="largeImageContainer">
+                <img id="largeImage" src="{{ url_for('static', filename='uploads/' ~ images[0]) }}" alt="First Book Image">
+            </div>
+            {% endif %}
+
+            <!-- Display the remaining images in smaller boxes -->
+            <div class="image-preview-container" id="smallImagesContainer">
+                {% for image in images[1:] %}
+                <div class="image-box">
+                    <img src="{{ url_for('static', filename='uploads/' ~ image) }}" alt="Book Image" onclick="swapImage(this)">
+                </div>
+                {% endfor %}
+            </div>
+            <p><strong>Title:</strong> {{ post.title }}</p>
+            <p><strong>Year:</strong> {{ post.year }}</p>
+        </div>
+
+        <div class="post-detail">
+            <h2>Details</h2>
+            <p><strong>By:</strong> {{ post.user.username }}</p>
+            <p><strong>Class:</strong> {{ post.class_name }}</p>
+            <p><strong>Description:</strong> {{ post.description }}</p>
+            <p><strong>Price:</strong> {{ post.price }}</p>
+            {% if post.price == 'Paid' %}
+            <p><strong>Amount:</strong> ₹ {{ post.amount }}</p>
+            {% endif %}
+            <p><strong>Contact:</strong> {{ post.contact }}</p>
+        </div>
+    </div>
+
+    <script>
+        function swapImage(smallImage) {
+            // Get the large image element
+            const largeImage = document.getElementById('largeImage');
+    
+            // Swap the source of the large image with the clicked small image
+            const tempSrc = largeImage.src;
+            largeImage.src = smallImage.src;
+            smallImage.src = tempSrc;
+        }
+    </script>
+
+</body>
+</html>

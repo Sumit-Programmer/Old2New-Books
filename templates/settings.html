@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+</head>
+<body>
+    <a href="/home"> ← Back</a>
+    <h1>Settings</h1>
+
+    <div class="posts-container">
+        {% for post in posts %}
+        <div class="post-card">
+            <!-- Display only the first image -->
+            <img src="{{ url_for('static', filename='uploads/' + post.image) }}" alt="Book Image">
+            <h2>{{ post.title }}</h2>
+            <p>Class: {{ post.class_name }}</p>
+            <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST" onsubmit="return confirmDelete()">
+                <button type="submit" class="delete-button">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete this post? This action cannot be undone.');
+        }
+    </script>
+</body>
+</html>

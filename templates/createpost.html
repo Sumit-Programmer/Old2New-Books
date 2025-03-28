@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/createpost.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+</head>
+<body>
+    <a href="/home"> ← Back</a>
+    <h1>Create a Post</h1>
+
+    <div class="form-container">
+        <form action="{{ url_for('createpost') }}" method="POST" enctype="multipart/form-data">
+            <div class="book-img">
+                <div id="bookImagesPreview" class="image-preview-container"></div>
+                <button type="button" onclick="addImage()">Add Image</button>
+                <input type="file" id="imageInput" name="book_images" accept="image/*" multiple style="display: none;" onchange="previewImages(event)">
+            </div>
+
+            <div class="form-group">
+                <label for="title">Title :- </label>
+                <input type="text" name="title" id="title" placeholder="MATHS" required>
+            </div>
+
+            <div class="form-group">
+                <label for="year">Year :- </label>
+                <input type="text" name="year" id="year" placeholder="2023" required>
+            </div>
+
+            <div class="form-group">
+                <label for="class">Class :- </label>
+                <input type="text" name="class" id="class" placeholder="10" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description :- </label>
+                <textarea name="description" id="description" placeholder="Description" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price :- </label>
+                <input type="radio" name="price" id="price_free" value="Free" required onclick="togglePriceInput()"> Free 
+                <input type="radio" name="price" id="price_paid" value="Paid" required onclick="togglePriceInput()"> Paid
+            </div>
+
+            <div class="form-group" id="price_input" style="display: none;">
+                <label for="amount">Amount :- </label>
+                <input type="number" name="amount" id="amount" placeholder="Enter amount in INR">
+            </div>
+
+            <div class="form-group">
+                <label for="contact">Contact :- </label>
+                <input type="text" name="contact" id="contact" placeholder="1234567890" required>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Create Post</button>
+            </div>
+            
+        </form>
+    </div>
+
+    <script>
+        function addImage() {
+            document.getElementById('imageInput').click();
+        }
+    
+        function previewImages(event) {
+            const files = event.target.files;
+            const previewContainer = document.getElementById('bookImagesPreview');
+    
+            Array.from(files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function () {
+                    const imageBox = document.createElement('div');
+                    imageBox.classList.add('image-box');
+    
+                    const img = document.createElement('img');
+                    img.src = reader.result;
+    
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.classList.add('delete-btn');
+                    deleteBtn.innerHTML = '×';
+                    deleteBtn.onclick = function () {
+                        previewContainer.removeChild(imageBox);
+                    };
+    
+                    imageBox.appendChild(img);
+                    imageBox.appendChild(deleteBtn);
+                    previewContainer.appendChild(imageBox);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+    </script>
+</body>
+</html>
