@@ -89,35 +89,32 @@ def createpost():
         flash('You need to be logged in to create a post.', 'danger')
         return redirect(url_for('login'))
 
+    user = User.query.filter_by(username=session['username']).first()
+    if not user:
+        flash('User not found. Please log in again.', 'danger')
+        return redirect(url_for('login'))
+
     if request.method == 'POST':
-        if 'book_images' not in request.files:
-            flash('No file part', 'danger')
-            return redirect(request.url)
-        
-        files = request.files.getlist('book_images')  # Get all uploaded files
+        title = request.form.get('title')
+        year = request.form.get('year')
+        class_name = request.form.get('class')
+        description = request.form.get('description')
+        price = request.form.get('price')
+        amount = request.form.get('amount') if price == 'Paid' else None
+        contact = request.form.get('contact')
+
+        # Handle image uploads
+        files = request.files.getlist('book_images')
         filenames = []
         for file in files:
-            if file.filename == '':
-                flash('No selected file', 'danger')
-                return redirect(request.url)
-            if file:
+            if file and file.filename != '':
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                filenames.append(filename)  # Save filenames for the post
-        
-        title = request.form['title']
-        year = request.form['year']
-        class_name = request.form['class']
-        description = request.form['description']
-        price = request.form['price']
-        amount = request.form['amount'] if price == 'Paid' else None
-        contact = request.form['contact']
-        user = User.query.filter_by(username=session['username']).first()
-        
+                filenames.append(filename)
+
+        # Save the post to the database
         try:
-            # Save the post with multiple images as a comma-separated string
             new_post = Post(
-                image=','.join(filenames),  # Store filenames as a single string
                 title=title,
                 year=year,
                 class_name=class_name,
@@ -125,6 +122,7 @@ def createpost():
                 price=price,
                 amount=amount,
                 contact=contact,
+                image=','.join(filenames),  # Save image filenames as a comma-separated string
                 user_id=user.id
             )
             db.session.add(new_post)
@@ -133,7 +131,8 @@ def createpost():
             return redirect(url_for('viewposts'))
         except Exception as e:
             print(e)
-            flash('An error occurred while creating the post!', 'danger')
+            flash('An error occurred while creating the post.', 'danger')
+
     return render_template('createpost.html')
 
 @app.route('/viewposts')
